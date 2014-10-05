@@ -1,5 +1,3 @@
-codemirror-4.6
-
 # History files
 .Rhistory
 
@@ -11,3 +9,5 @@ codemirror-4.6
 
 # RStudio files
 .Rproj.user/
+
+codemirror-4.6
