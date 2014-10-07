@@ -38,8 +38,17 @@ $.extend(codeMirrorInputBinding, {
       lineNumbers: true,
       matchBrackets: true,
       autoCloseBrackets: true,
-      extraKeys: {'Ctrl-Space': 'autocomplete', 'tab': 'autocomplete'}
+      extraKeys: {'Ctrl-Space': 'autocomplete', 'Tab': 'autocomplete'}
     });
   }
 });
 Shiny.inputBindings.register(codeMirrorInputBinding);
+
+CodeMirror.commands.autocomplete = function(cm) {
+  Shiny.onInputChange('CodeMirror_' + cm.getTextArea().id + '_hint', {
+    test: "1",
+    '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
+  });
+  
+  CodeMirror.showHint(cm, CodeMirror.hint.anyword);
+}

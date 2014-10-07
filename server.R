@@ -13,6 +13,9 @@ shinyServer(function(input, output, session) {
   
   output$table <- renderDataTable(mtcars)
   
+  codeMirrorHint("mutate")
+  codeMirrorHint("ggvis")
+  
   reactive({ 
     input$go
     
