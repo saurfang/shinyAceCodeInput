@@ -7,7 +7,6 @@
 
 library(shiny)
 library(ggvis)
-source("codeMirror.R")
 
 shinyUI(fluidPage(
 
