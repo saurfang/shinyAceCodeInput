@@ -19,7 +19,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       codeMirrorInput("mutate", tags$pre("mtcars %>%"), "select(x = wt, y = mpg) \n"),
       codeMirrorInput("ggvis", tags$pre("%>% ggvis() %>%"), "add_props(~x, ~y) %>% \n\tlayer_guess() \n"),
-      div(actionButton("go", "Go"), class = "pull-right"),
+      actionButton("go", "Go", class = "pull-right"),
       br(), #pad the above pull-right
       textOutput("error")
     ),
