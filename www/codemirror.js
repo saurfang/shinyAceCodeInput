@@ -61,6 +61,10 @@ Shiny.addCustomMessageHandler('codemirror', function(data) {
 CodeMirror.registerHelper("hint", "rShiny", function(cm, options) {
     var cur = cm.getCursor(), token = cm.getTokenAt(cur);
     
+    if(!token.type || !$.inArray(token.type, ['dollar'])) {
+      token.start = token.end;
+    }
+    
     return {
       list: options.comps.split(/[ ,]+/),
       from: CodeMirror.Pos(cur.line, token.start),
