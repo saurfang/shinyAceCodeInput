@@ -45,4 +45,10 @@ shinyServer(function(input, output, session) {
   }) %>%
     bind_shiny("plot", "plot_ui")
 
+  observe({
+    if(input$groupedPoints == 0) return(NULL)
+    
+    updateCodeMirrorInput(session, "mutate", code = "identity\n")
+    updateCodeMirrorInput(session, "ggvis", code = "layer_points(~wt, ~mpg,\n\tfill = ~as.factor(cyl))\n")
+  })
 })

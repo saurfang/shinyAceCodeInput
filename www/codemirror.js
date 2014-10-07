@@ -10,7 +10,8 @@ $.extend(codeMirrorInputBinding, {
     return el.value;
   },
   setValue: function(el, value) {
-    el.value = value;
+    //el.value = value;
+    el.nextSibling.CodeMirror.getDoc().setValue(value);
   },
   subscribe: function(el, callback) {
     el.nextSibling.CodeMirror.on('update', function(instance) {
@@ -22,8 +23,8 @@ $.extend(codeMirrorInputBinding, {
     el.nextSibling.CodeMirror.off('update');
   },
   receiveMessage: function(el, data) {
-    if (data.hasOwnProperty('value'))
-      this.setValue(el, data.value);
+    if (data.hasOwnProperty('code'))
+      this.setValue(el, data.code);
 
     if (data.hasOwnProperty('label'))
       $(el).parent().find('label[for="' + $escape(el.id) + '"]').text(data.label);

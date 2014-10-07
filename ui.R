@@ -16,11 +16,15 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
+      helpText("Modify the code chunks below and click Go to see the plot updates. 
+               Use Tab or Ctrl+Space for code completion."),
       codeMirrorInput("mutate", tags$pre("mtcars %>%"), "select(x = wt, y = mpg) \n"),
       codeMirrorInput("ggvis", tags$pre("%>% ggvis() %>%"), "add_props(~x, ~y) %>% \n\tlayer_guess() \n"),
       actionButton("go", "Go", class = "pull-right"),
       br(), #pad the above pull-right
-      textOutput("error")
+      textOutput("error"),
+      helpText("Things you can try:"),
+      actionButton("groupedPoints", "Grouped Points")
     ),
     
     # Show a plot of the generated distribution
