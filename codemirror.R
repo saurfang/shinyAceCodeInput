@@ -7,7 +7,6 @@ codeMirrorInput <- function(inputId, label, code = NULL, hint = c("autocomplete"
   
   attachDependencies(
     tagList(singleton(tags$script(src = "codemirror.js")),
-            singleton(tags$script(src = "shiny-r-hint.js")),
             singleton(tags$link(href = "codemirror.css", rel = "stylesheet")),
             label %AND% tags$label(label, `for` = inputId),
             tags$textarea(id = inputId, name = inputId, class = "shiny-codeMirrorInput", code)
@@ -20,12 +19,20 @@ codeMirrorInput <- function(inputId, label, code = NULL, hint = c("autocomplete"
   )
 }
 
-codeMirrorHint <- function(inputId, reactive = NULL, session = shiny::getDefaultReactiveDomain()) {
+codeMirrorHint <- function(inputId, fromList = NULL, session = shiny::getDefaultReactiveDomain()) {
   shiny::observe({
     value <- session$input[[paste0("CodeMirror_", inputId, "_hint")]]
     if(is.null(value)) return(NULL)
     
-    message("update:", value)
+    hints <- list(inputId = inputId,
+                  comps = utils:::.win32consoleCompletion(value$linebuffer, value$cursorPosition)$comps)
+    
+    fromList2 <- if(is.reactive(fromList)) fromList() else fromList
+    if(!is.null(fromList2)) {
+      hints$comps <- paste(hints$comps, paste(fromList2, collapse = " "))
+    }
+    
+    session$sendCustomMessage('codemirror', hints)
   })
 }
 

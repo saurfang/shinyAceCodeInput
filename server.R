@@ -13,8 +13,17 @@ shinyServer(function(input, output, session) {
   
   output$table <- renderDataTable(mtcars)
   
-  codeMirrorHint("mutate")
-  codeMirrorHint("ggvis")
+  mutatedNames <- reactive({
+    try({
+      code <- gsub("\\s+$", "", isolate(input$mutate))
+      eval(parse(text = isolate(paste("mtcars %>%", code)))) %>%
+        colnames %>%
+        paste0("~", .)
+    }, silent = TRUE)
+  })
+  
+  codeMirrorHint("mutate", colnames(mtcars))
+  codeMirrorHint("ggvis", mutatedNames)
   
   reactive({ 
     input$go

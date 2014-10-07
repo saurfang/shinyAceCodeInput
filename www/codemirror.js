@@ -46,9 +46,24 @@ Shiny.inputBindings.register(codeMirrorInputBinding);
 
 CodeMirror.commands.autocomplete = function(cm) {
   Shiny.onInputChange('CodeMirror_' + cm.getTextArea().id + '_hint', {
-    test: "1",
+    linebuffer: cm.getLine(cm.getCursor().line),
+    cursorPosition: cm.getCursor().ch,
     '.nonce': Math.random() // Force reactivity if lat/lng hasn't changed
   });
-  
-  CodeMirror.showHint(cm, CodeMirror.hint.anyword);
 }
+
+Shiny.addCustomMessageHandler('codemirror', function(data) {
+  var cm = $('#'+data.inputId)[0].nextSibling.CodeMirror;
+  
+  CodeMirror.showHint(cm, CodeMirror.hint.rShiny, data);
+});
+
+CodeMirror.registerHelper("hint", "rShiny", function(cm, options) {
+    var cur = cm.getCursor(), token = cm.getTokenAt(cur);
+    
+    return {
+      list: options.comps.split(/[ ,]+/),
+      from: CodeMirror.Pos(cur.line, token.start),
+            to: CodeMirror.Pos(cur.line, token.end)
+    };
+  });
