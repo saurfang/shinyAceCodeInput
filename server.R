@@ -51,4 +51,18 @@ shinyServer(function(input, output, session) {
     updateAceCodeInput(session, "mutate", code = "identity\n")
     updateAceCodeInput(session, "ggvis", code = "layer_points(~wt, ~mpg,\n\tfill = ~as.factor(cyl))\n")
   })
+  
+  observe({
+    if(input$modelFits == 0) return(NULL)
+    
+    updateAceCodeInput(session, "mutate", code = "do(data.frame(
+  `Fitted lm` = lm(mpg ~ ., data = .)$fitted,
+  `Fitted loess` = loess(mpg ~ wt + cyl, data = .)$fitted,
+  `Fitted gam` = mgcv::gam(mpg ~ s(wt, by = cyl), data = .)$fitted,
+  wt = .$wt,
+  Actual = .$mpg)) %>%
+  reshape2::melt(c(\"wt\", \"Actual\"))")
+    updateAceCodeInput(session, "ggvis", code = "layer_points(~wt, ~value, fill = ~variable) %>%
+layer_points(~wt, ~Actual)")
+  })
 })

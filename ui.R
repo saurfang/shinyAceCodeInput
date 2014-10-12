@@ -24,7 +24,8 @@ shinyUI(fluidPage(
       br(), #pad the above pull-right
       textOutput("error"),
       helpText("Things you can try:"),
-      actionButton("groupedPoints", "Grouped Points")
+      actionButton("groupedPoints", "Grouped Points"),
+      actionButton("modelFits", "Model Fits")
     ),
     
     # Show a plot of the generated distribution

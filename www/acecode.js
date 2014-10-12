@@ -37,9 +37,11 @@ $.extend(aceCodeInputBinding, {
     editor.setOptions({
       maxLines: 15,
       enableBasicAutocompletion: true,
-      enableLiveAutocompletion: true
+      enableLiveAutocompletion: true,
+      tabSize: 2,
+      behavioursEnabled: true,
+      wrapBehavioursEnabled: true
     })
-    editor.setBehavioursEnabled(true);
   },
   _aceSession: function(el) {
     return ace.edit(el).getSession();
