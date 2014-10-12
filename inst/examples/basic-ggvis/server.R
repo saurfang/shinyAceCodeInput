@@ -8,6 +8,8 @@
 library(shiny)
 library(dplyr)
 library(ggvis)
+library(mgcv)
+library(reshape2)
 library(shinyAceCodeInput)
 
 shinyServer(function(input, output, session) {
