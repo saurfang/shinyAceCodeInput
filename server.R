@@ -22,8 +22,8 @@ shinyServer(function(input, output, session) {
     }, silent = TRUE)
   })
   
-  codeMirrorHint("mutate", colnames(mtcars))
-  codeMirrorHint("ggvis", mutatedNames)
+  aceCodeCompletion("mutate", colnames(mtcars))
+  aceCodeCompletion("ggvis", mutatedNames)
   
   reactive({ 
     input$go
@@ -48,7 +48,7 @@ shinyServer(function(input, output, session) {
   observe({
     if(input$groupedPoints == 0) return(NULL)
     
-    updateCodeMirrorInput(session, "mutate", code = "identity\n")
-    updateCodeMirrorInput(session, "ggvis", code = "layer_points(~wt, ~mpg,\n\tfill = ~as.factor(cyl))\n")
+    updateAceCodeInput(session, "mutate", code = "identity\n")
+    updateAceCodeInput(session, "ggvis", code = "layer_points(~wt, ~mpg,\n\tfill = ~as.factor(cyl))\n")
   })
 })
