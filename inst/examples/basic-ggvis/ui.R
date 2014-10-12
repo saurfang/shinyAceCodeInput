@@ -7,6 +7,7 @@
 
 library(shiny)
 library(ggvis)
+library(shinyAceCodeInput)
 
 shinyUI(fluidPage(
 

@@ -1,0 +1,17 @@
+Package: shinyAceCodeInput
+Title: Ace Code Editor Input Widget for Shiny
+Version: 0.1
+Authors@R: "Forest Fang <forest.fang@outlook.com> [aut, cre]"
+Description: Ace is an open-source live code editor written in javascript. This
+    package wraps the component in a Shiny input widget such that you can parse
+    user input as code easily and provide familiar IDE look and feel with basic
+    code autocompletion.
+Depends:
+    R (>= 3.1.0)
+License: MIT + file LICENSE
+LazyData: true
+Suggests:
+    ggvis
+Imports:
+    htmltools,
+    shiny
