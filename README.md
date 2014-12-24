@@ -1,6 +1,10 @@
 shinyAceCodeInput
 ===============
 
+**Attention** All functionalities in this package have been fully merged into [shinyAce](https://github.com/trestletech/shinyAce). Please use that instead and this package has been deprecated.
+
+-------------
+
 Interactive Shiny via direct R programming
 
 ## Introduction
